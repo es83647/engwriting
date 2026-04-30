@@ -1,1 +1,1 @@
-myBoard/.env에 api 코드를 넣어주세요.
+myBoard/.env에 GEMINI_API_KEY를 넣어주세요.
