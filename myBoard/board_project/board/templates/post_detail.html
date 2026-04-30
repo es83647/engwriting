@@ -1,0 +1,141 @@
+<!-- myBoard/board_project/board/templates/post_detail.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'post_detail.css' %}">
+
+
+</head>
+<body>
+    <main class="container">
+        <article class="card">
+            <h1>{{ post.title }}</h1>
+            <p class="date">{{ post.created_at|date:"Y-m-d H:i" }}</p>
+
+            <section class="detail-section">
+                <h2>사용자의 영어 원문</h2>
+                <div class="text-box">
+                    {{ post.user_english|linebreaksbr }}
+                </div>
+            </section>
+
+            <section class="detail-section">
+                <h2>교정된 영어 문장</h2>
+                <div class="text-box corrected">
+                    {{ post.corrected_english|linebreaksbr }}
+                </div>
+            </section>
+
+            {% if post.native_text %}
+                <section class="detail-section">
+                    <h2>네이티브 문장 / 의도 설명</h2>
+                    <div class="text-box">
+                        {{ post.native_text|linebreaksbr }}
+                    </div>
+                </section>
+            {% endif %}
+
+            <section class="detail-section">
+                <h2>교정</h2>
+                <div class="correction-list">
+                    {% if feedback.corrections %}
+                            {% for correction in feedback.corrections %}
+                                <article class="correction-card">
+                                    <h4>{{ correction.corrected|linebreaksbr }}</h4>
+
+                                    <div class="correction-grid">
+                                        <div class="correction-cell">
+                                            <strong>교정한 원문</strong>
+                                            <p>{{ correction.target }}</p>
+                                        </div>
+
+                                        <div class="correction-cell">
+                                            <strong>교정한 이유</strong>
+                                            <p>{{ correction.reason|linebreaksbr }}</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+
+                    {% else %}
+                        <p class="empty-text">표시할 교정 항목이 없습니다.</p>
+                    {% endif %}
+                </div>
+            </section>
+
+            <section class="detail-section">
+                <h2>제안</h2>
+                <section class="feedback-panel">
+
+                      <div class="suggestion-group">
+                          <h4>표현/숙어</h4>
+
+                          <ul class="suggestion-list">
+                              {% for item in feedback.suggestions.expression_idiom %}
+                                  <li>
+                                      <strong>{{ item.item }}</strong><br>
+                                      <span>{{ item.reason|linebreaksbr }}</span>
+                                  </li>
+                              {% empty %}
+                                  <li class="empty-text">제안 항목이 없습니다.</li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+
+                      <div class="suggestion-group">
+                          <h4>동사/형용사</h4>
+
+                          <ul class="suggestion-list">
+                              {% for item in feedback.suggestions.verb_adjective %}
+                                  <li>
+                                      <strong>{{ item.item }}</strong><br>
+                                      <span>{{ item.reason|linebreaksbr }}</span>
+                                  </li>
+                              {% empty %}
+                                  <li class="empty-text">제안 항목이 없습니다.</li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+
+                      <div class="suggestion-group">
+                          <h4>단어/부사</h4>
+
+                          <ul class="suggestion-list">
+                              {% for item in feedback.suggestions.word_adverb %}
+                                  <li>
+                                      <strong>{{ item.item }}</strong><br>
+                                      <span>{{ item.reason|linebreaksbr }}</span>
+                                  </li>
+                              {% empty %}
+                                  <li class="empty-text">제안 항목이 없습니다.</li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+
+                </section>
+            </section>
+
+                {% if feedback.raw_text %}
+                    <details class="raw-feedback">
+                        <summary>원문 피드백 보기</summary>
+
+                        <div class="text-box feedback">
+                            {{ feedback.raw_text|linebreaksbr }}
+                        </div>
+                    </details>
+                {% endif %}
+
+
+            <div class="actions">
+                <a class="btn" href="{% url 'post_list' %}">목록으로</a>
+                <a class="btn btn-danger" href="{% url 'post_delete' post.pk %}">삭제</a>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

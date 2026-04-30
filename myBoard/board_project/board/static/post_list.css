@@ -1,0 +1,210 @@
+
+@font-face {
+    font-family: "Roboto";
+    src: url("fonts/Roboto-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("fonts/Roboto-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("fonts/Roboto-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, "Noto Sans KR", sans-serif;
+    background-color: #f5f6f8;
+    color: #222;
+}
+
+.container {
+    width: min(960px, 92%);
+    margin: 40px auto;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+    color: #111827;
+}
+
+.page-header p {
+    margin: 0;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #1f2937;
+}
+
+.form-field {
+    margin-bottom: 18px;
+}
+
+.form-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+textarea,
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ccd1d9;
+    border-radius: 8px;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+textarea:focus,
+input[type="text"]:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #1d4ed8;
+}
+
+.post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-list-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.post-list-item:last-child {
+    border-bottom: none;
+}
+
+.post-list-item a {
+    font-weight: bold;
+    color: #111827;
+    text-decoration: none;
+}
+
+.post-list-item a:hover {
+    text-decoration: underline;
+}
+
+.date {
+    display: inline-block;
+    margin-left: 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.messages {
+    padding: 12px 18px;
+    background-color: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    color: #065f46;
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.form-errors {
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    color: #991b1b;
+}
+
+.errorlist {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    color: #dc2626;
+    font-size: 14px;
+}
+
+.empty-text {
+    color: #6b7280;
+}
+
+@media (max-width: 640px) {
+    .container {
+        margin: 24px auto;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .date {
+        display: block;
+        margin-left: 0;
+        margin-top: 6px;
+    }
+}
+
+.text-counter {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #6b7280;
+    text-align: right;
+}
+
+.loading-message {
+    margin-top: 12px;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+}

@@ -1,0 +1,52 @@
+# docker-compose.yml
+
+services:
+  web:
+    build: ./myBoard
+    container_name: engwriting_board
+    env_file:
+      - ./myBoard/.env
+    networks:
+      - engwriting_network
+    depends_on:
+      - db
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+    restart: always
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:15.4
+    container_name: board_db
+    networks:
+      - engwriting_network
+    env_file:
+      - ./myBoard/.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-board_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-board}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  nginx:
+    build: ./myNginx
+    container_name: engwriting_nginx
+    networks:
+      - engwriting_network
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+    restart: always
+
+networks:
+  engwriting_network:
+
+volumes:
+  postgres_data:
+  static_volume:

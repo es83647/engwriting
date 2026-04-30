@@ -1,0 +1,30 @@
+<!-- myBoard/board_project/board/templates/post_confirm_delete.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 삭제</title>
+    <link rel="stylesheet" href="{% static 'post_confirm_delete.css' %}">
+</head>
+<body>
+    <main class="container">
+        <section class="card">
+            <h1>게시글 삭제</h1>
+
+            <p>
+                정말로 <strong>{{ post.title }}</strong>글을 삭제하시겠습니까?
+            </p>
+
+            <form method="post" class="delete-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">삭제</button>
+                <a class="btn" href="{% url 'post_detail' post.pk %}">취소</a>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

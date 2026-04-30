@@ -1,0 +1,82 @@
+<!-- myBoard/board_project/board/templates/post_list.html -->
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>영작도우미</title>
+    <link rel="stylesheet" href="{% static 'post_list.css' %}">
+
+</head>
+<body>
+    <main class="container">
+        <header class="page-header">
+            <h1>영작도우미</h1>
+            <p>영어 문장을 교정하고 표현을 추천합니다.</p>
+        </header>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <section class="card">
+            <h2>영어 문장 입력</h2>
+
+            <form method="post" class="writing-form" id="writing-form">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="form-errors">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-field">
+                    {{ form.user_english.label_tag }}
+                    {{ form.user_english }}
+                    {{ form.user_english.errors }}
+                </div>
+
+                <div class="form-field">
+                    {{ form.native_text.label_tag }}
+                    {{ form.native_text }}
+                    {{ form.native_text.errors }}
+                </div>
+
+                <button type="submit" class="btn" id="submit-btn">교정하기</button>
+            </form>
+            <div class="text-counter">
+                글자 수: <span id="char-count">0</span>자 /
+                단어 수: <span id="word-count">0</span>개
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>작성 기록</h2>
+
+            <ul class="post-list">
+                {% for post in posts %}
+                    <li class="post-list-item">
+                        <a href="{% url 'post_detail' post.pk %}">
+                            {{ post.title }}
+                        </a>
+                        <span class="date">
+                            {{ post.created_at|date:"Y-m-d H:i" }}
+                        </span>
+                    </li>
+                {% empty %}
+                    <li class="empty-text">아직 작성된 기록이 없습니다.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+<script src="{% static 'post_list.js' %}"></script>
+</body>
+</html>
